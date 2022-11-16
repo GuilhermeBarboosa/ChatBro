@@ -12,8 +12,8 @@ object DAOChatSingleton {
     init {
         val listArray: ArrayList<String> = ArrayList()
         listArray.add("Guilherme");
-        listArray.add("Higor");
-        listArray.add("Clebson");
+        listArray.add("JJJJ");
+        listArray.add("CCC");
         for(i in 0..2) {
             val c = Chat("${listArray[i]}", "hello");
             this.add(c)

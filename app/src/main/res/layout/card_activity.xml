@@ -50,12 +50,6 @@
                     android:text="Hello, world!"
                     android:textSize="15dp" />
             </LinearLayout>
-            <!--            <CheckBox-->
-            <!--                android:id="@+id/cbDone"-->
-            <!--                android:layout_width="50dp"-->
-            <!--                android:layout_height="match_parent"-->
-            <!--                android:layout_weight="0" />-->
-
 
         </LinearLayout>
 
