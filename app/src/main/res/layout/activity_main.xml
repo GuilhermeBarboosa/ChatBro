@@ -30,7 +30,7 @@
         android:layout_width="match_parent"
         android:layout_height="778dp"
         app:layout_constraintBottom_toTopOf="@+id/swUrgent"
-        tools:listitem="@layout/fragment_first"
+        tools:listitem="@layout/card_activity"
         tools:ignore="UsingOnClickInXml" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

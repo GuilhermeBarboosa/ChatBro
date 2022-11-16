@@ -1,8 +1,11 @@
 package com.pdm
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.*
+import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -10,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.pdm.data.DAOChatSingleton
 import com.pdm.model.Chat
 import com.pdm.ui.list.adapter.ChatAdapter
+import kotlin.random.Random
 
 
 class MainActivity : AppCompatActivity() {
@@ -27,37 +31,56 @@ class MainActivity : AppCompatActivity() {
         this.rvChatList.layoutManager = LinearLayoutManager(this)
         val adapter = ChatAdapter(DAOChatSingleton.getChats());
         this.rvChatList.adapter = adapter
-        Log.e("passou", "teste");
 
+        val resultLauncher = registerForActivityResult(
+            ActivityResultContracts.StartActivityForResult()
+        ) { result ->
+            if(result.resultCode == RESULT_OK && result.data != null) {
+                val chatId = result.data!!.getLongExtra("chatId", -1)
+                val chatPos = DAOChatSingleton.getChatPositionById(chatId)
+                adapter.notifyItemChanged(chatPos)
+            }
+        }
 
+        adapter.setOnClickChatListener { chat ->
+            val openChatIntent =
+                Intent(this, ChatActivity::class.java)
+            openChatIntent.putExtra("chatId", chat.id)
+            resultLauncher.launch(openChatIntent)
+        }
     }
 
     fun onClickInsert(v: View) {
-        Log.e("teste", "teste");
-        val c = Chat("Hello", "aaaaa")
+        var listNomes: ArrayList<String> = ArrayList()
+        listNomes = addNomes(listNomes);
+
+        var numero = (Math.random() * 10)
+
+        while (numero > listNomes.size) {
+            numero = (Math.random() * 10);
+        }
+        var nome = listNomes.get(numero.toInt());
+
+        val c = Chat("" + nome, "aaaaa")
         DAOChatSingleton.add(c)
         this.rvChatList.adapter?.notifyItemInserted(0)
     }
 
+    private fun addNomes(listNomes: java.util.ArrayList<String>): java.util.ArrayList<String> {
+        listNomes.add("José");
+        listNomes.add("Paulo");
+        listNomes.add("Lucas");
+        listNomes.add("Julia");
+        listNomes.add("Carol");
+        listNomes.add("Fernanda");
+        listNomes.add("Gabriel");
+        listNomes.add("Marcos");
+        listNomes.add("Felipe");
+        return listNomes;
+    }
+
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        // Inflate the menu; this adds items to the action bar if it is present.
-//        menuInflater.inflate(R.menu.menu_main, menu)
         return true
     }
 
-//    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-//        // Handle action bar item clicks here. The action bar will
-//        // automatically handle clicks on the Home/Up button, so long
-//        // as you specify a parent activity in AndroidManifest.xml.
-//        return when(item.itemId) {
-//            R.id.action_settings -> true
-//            else -> super.onOptionsItemSelected(item)
-//        }
-//    }
-
-//    override fun onSupportNavigateUp(): Boolean {
-//    val navController = findNavController(R.id.nav_host_fragment_content_main)
-//    return navController.navigateUp(appBarConfiguration)
-//            || super.onSupportNavigateUp()
-//    }
 }

@@ -3,14 +3,14 @@ package com.pdm.ui.list.adapter
 import android.util.SparseBooleanArray
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView.Adapter
 import com.pdm.R
 import com.pdm.model.Chat
 import com.pdm.ui.list.viewholder.ChatViewHolder
 
 class ChatAdapter (
     private var chats: ArrayList<Chat>
-        ): RecyclerView.Adapter<ChatViewHolder>() {
+        ): Adapter<ChatViewHolder>() {
 
     fun interface OnClickChatListener {
         fun onClick(chat: Chat)
@@ -26,7 +26,7 @@ class ChatAdapter (
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ChatViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context);
         val itemView = layoutInflater.inflate(
-            R.layout.fragment_first, parent, false
+            R.layout.card_activity, parent, false
         )
         return ChatViewHolder(itemView, this)
     }
@@ -36,15 +36,19 @@ class ChatAdapter (
         holder.bind(chat)
     }
 
+    fun getExpandedMap(): SparseBooleanArray {
+        return this.expandedMap
+    }
+
     override fun getItemCount(): Int {
         return this.chats.size
     }
 
-    fun setOnClickTaskListener(listener: OnClickChatListener?) {
+    fun setOnClickChatListener(listener: OnClickChatListener?) {
         this.listener = listener
     }
 
-    fun getOnClickTaskListener(): OnClickChatListener? {
+    fun getOnClickChatListener(): OnClickChatListener? {
         return this.listener
     }
 

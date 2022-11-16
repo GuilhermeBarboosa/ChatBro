@@ -22,7 +22,10 @@ class ChatViewHolder (
     protected lateinit var currentChat: Chat
 
     init {
-
+        this.txtMessage.setOnClickListener {
+            this.adapter
+                .getOnClickChatListener()?.onClick(this.currentChat)
+        }
     }
 
     open fun bind(chat: Chat) {
