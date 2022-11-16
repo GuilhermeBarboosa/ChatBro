@@ -70,11 +70,12 @@
         android:id="@+id/rvMessageList"
         android:layout_width="409dp"
         android:layout_height="628dp"
-        android:layout_marginTop="51dp"
-        android:layout_marginBottom="51dp"
+        android:layout_marginTop="52dp"
+        android:layout_marginBottom="50dp"
         app:layout_constraintBottom_toBottomOf="@+id/lEditorMensagem"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/linearLayout2"
         tools:listitem="@layout/mensagem_enviada_activity" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

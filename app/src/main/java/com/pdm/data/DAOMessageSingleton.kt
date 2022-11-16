@@ -1,24 +1,28 @@
 package com.pdm.data
 
-import android.annotation.SuppressLint
 import android.os.Build
-import android.util.Log
 import androidx.annotation.RequiresApi
 import com.pdm.model.Chat
 import com.pdm.model.Message
 import java.time.LocalDateTime
-import java.util.logging.Logger
-import kotlin.random.Random
 
 @RequiresApi(Build.VERSION_CODES.O)
 object DAOMessageSingleton {
     private var serial: Long = 1
-    private val message = ArrayList<Message>()
+    private var message = ArrayList<Message>()
 
     init {
-        for(i in 1..5) {
-            val m = Message(1, "oi, moanoite", true, LocalDateTime.now());
-            this.add(m)
+        for(i in 1..7) {
+
+            val num = (Math.random()*10).toInt()
+
+            if(num%2 == 0){
+                val m = Message(1, "oi, moanoite", true, LocalDateTime.now());
+                this.add(m)
+            }else{
+                val m = Message(1, "oi, moanoite", false, LocalDateTime.now());
+                this.add(m)
+            }
         }
     }
 
@@ -30,7 +34,7 @@ object DAOMessageSingleton {
     fun getMessage(chat: Chat): ArrayList<Message>? {
         if(!this.message.isEmpty()){
             if(chat.id == this.message.get(0).chatId){
-                return this.message
+                return this.message;
             }
         }
         return null;

@@ -1,11 +1,12 @@
 package com.pdm.model;
 
 import android.os.Build
+import android.widget.EditText
 import androidx.annotation.RequiresApi
 import java.time.LocalDate
 import java.time.LocalDateTime
 
-class Message  constructor(
+class Message(
     var chatId: Long = 0,
     var message: String = "",
     var recebida: Boolean = true,
@@ -19,6 +20,7 @@ class Message  constructor(
         this.id = id
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     fun createMessage(message: String, recebida: Boolean, chatId: Long): Message? {
         var messageObject: Message? = null;
         messageObject?.message = message;

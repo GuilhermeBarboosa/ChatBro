@@ -38,11 +38,23 @@ class MessageViewHolder (
     open fun bind(message: Message) {
         this.currentMessage = message
         val chat: Chat? = DAOChatSingleton.getChatById(message.chatId);
-        this.mensagemRecebida.text = message.message;
-        this.nomeMensagemRecebida.text = chat?.name;
 
-        this.mensagemEnviada.text = message.message;
-        this.nomeMensagemEnviada.text = "Guilherme";
+        if(message.recebida){
+            this.mensagemRecebida.text = message.message;
+            this.nomeMensagemRecebida.text = chat?.name;
+
+            mensagemEnviada.visibility = View.GONE;
+            nomeMensagemEnviada.visibility = View.GONE;
+        }else{
+            this.mensagemEnviada.text = message.message;
+            this.nomeMensagemEnviada.text = "Guilherme";
+
+            mensagemRecebida.visibility = View.GONE;
+            nomeMensagemRecebida.visibility = View.GONE;
+        }
+
+
+
 
     }
 }

@@ -1,10 +1,10 @@
 package com.pdm
 
+import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
@@ -17,6 +17,7 @@ import com.pdm.data.DAOChatSingleton
 import com.pdm.data.DAOMessageSingleton
 import com.pdm.model.Message
 import com.pdm.ui.list.adapter.MessageAdapter
+import java.time.LocalDateTime
 
 class ChatActivity : AppCompatActivity() {
     private lateinit var txtNomePessoa: TextView
@@ -62,25 +63,36 @@ class ChatActivity : AppCompatActivity() {
                 "Não há mensagem", Toast.LENGTH_SHORT).show()
         }
 
-
-
-
-
         this.botaoEnviar.setOnClickListener {
             Toast.makeText(this,
                 "entrou", Toast.LENGTH_SHORT).show()
 
-            val m: Message? = null;
-            m?.message = this.txtCampoMensagem.toString()
-            m?.recebida = true;
-            m?.chatId = chat.id;
-            if (m != null) {
+            val mensagemEscrita: String = this.txtCampoMensagem.text.toString()
+            Log.d("Mensagem escrita", mensagemEscrita);
+
+            val num = (Math.random()*10).toInt()
+
+            if(num%2 == 0){
+                val m = Message(chatId, mensagemEscrita, true, LocalDateTime.now());
+                DAOMessageSingleton.add(m)
+            }else{
+                val m = Message(chatId, mensagemEscrita, false, LocalDateTime.now());
                 DAOMessageSingleton.add(m)
             }
+
             this.rvMessageList.adapter?.notifyItemInserted(0)
         }
 
 
+    }
+
+    override fun onBackPressed() {
+        val output = Intent()
+        output.putExtra("chatId", this.chatId)
+        setResult(RESULT_OK, output)
+        // nunca chame finish() antes de settar o resultado
+        // super.onBackPressed() chama finish() internamente
+        super.onBackPressed()
     }
 
 }

@@ -61,7 +61,7 @@ class MainActivity : AppCompatActivity() {
         }
         var nome = listNomes.get(numero.toInt());
 
-        val c = Chat("" + nome, "aaaaa")
+        val c = Chat("" + nome, "")
         DAOChatSingleton.add(c)
         this.rvChatList.adapter?.notifyItemInserted(0)
     }
