@@ -1,15 +1,12 @@
 package com.pdm.ui.list.adapter
 
-import android.util.Log
 import android.util.SparseBooleanArray
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import com.pdm.R
 import com.pdm.model.Message
-import com.pdm.ui.list.viewholder.MessageEnviadaViewHolder
 import com.pdm.ui.list.viewholder.MessageViewHolder
-import kotlin.random.Random
 
 class MessageAdapter(
     private var message: ArrayList<Message>
@@ -30,7 +27,6 @@ class MessageAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MessageViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context);
 
-        val num: Int = (0 until 1).random()
             val itemView = layoutInflater.inflate(
                 R.layout.mensagem_enviada_activity,
                 parent, false

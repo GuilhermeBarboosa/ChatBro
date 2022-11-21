@@ -80,7 +80,7 @@ class ChatActivity : AppCompatActivity() {
                 DAOMessageSingleton.add(m)
             }
 
-            this.rvMessageList.adapter?.notifyItemInserted(0)
+            this.rvMessageList.adapter?.notifyItemInserted(DAOMessageSingleton.getSizeMessage())
         }
 
 

@@ -1,6 +1,7 @@
 package com.pdm.data
 
 import android.os.Build
+import android.util.Log
 import androidx.annotation.RequiresApi
 import com.pdm.model.Chat
 import com.pdm.model.Message
@@ -12,14 +13,14 @@ object DAOMessageSingleton {
     private var message = ArrayList<Message>()
 
     init {
-        for(i in 1..7) {
+        for (i in 1..7) {
 
-            val num = (Math.random()*10).toInt()
+            val num = (Math.random() * 10).toInt()
 
-            if(num%2 == 0){
+            if (num % 2 == 0) {
                 val m = Message(1, "oi, moanoite", true, LocalDateTime.now());
                 this.add(m)
-            }else{
+            } else {
                 val m = Message(1, "oi, moanoite", false, LocalDateTime.now());
                 this.add(m)
             }
@@ -32,17 +33,23 @@ object DAOMessageSingleton {
     }
 
     fun getMessage(chat: Chat): ArrayList<Message>? {
-        if(!this.message.isEmpty()){
-            if(chat.id == this.message.get(0).chatId){
-                return this.message;
+        var messageChat = ArrayList<Message>()
+
+        if (!this.message.isEmpty()) {
+            for (i in this.message) {
+                if (i.chatId == chat.id) {
+                    Log.d("Mensagem", i.toString());
+                    messageChat.add(i)
+                }
             }
+            return messageChat;
         }
         return null;
     }
 
     fun getChatById(id: Long): Message? {
-        for(c in this.message) {
-            if(c.id == id)
+        for (c in this.message) {
+            if (c.id == id)
                 return c
         }
         return null
@@ -53,4 +60,7 @@ object DAOMessageSingleton {
         return this.message.indexOf(Message(id))
     }
 
+    fun getSizeMessage(): Int{
+        return this.message.size
+    }
 }
