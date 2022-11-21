@@ -18,10 +18,10 @@ object DAOMessageSingleton {
             val num = (Math.random() * 10).toInt()
 
             if (num % 2 == 0) {
-                val m = Message(1, "oi, moanoite", true, LocalDateTime.now());
+                val m = Message(1, "opa", true, LocalDateTime.now());
                 this.add(m)
             } else {
-                val m = Message(1, "oi, moanoite", false, LocalDateTime.now());
+                val m = Message(1, "eai", false, LocalDateTime.now());
                 this.add(m)
             }
         }
