@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SecondFragment">
+    android:background="@color/white">
 
     <TextView
         android:id="@+id/textview_second"
@@ -19,33 +19,44 @@
         android:id="@+id/lEditorMensagem"
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:background="#173F85"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.997">
+        app:layout_constraintVertical_bias="1.0">
 
-        <EditText
-            android:id="@+id/txtCampoMensagem"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:ems="10"
-            android:hint="Digite sua mensagem"
-            android:inputType="textPersonName" />
+                <EditText
+                    android:id="@+id/txtCampoMensagem"
+                    android:layout_marginLeft="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="#173F85"
+                    android:backgroundTint="#173F85"
+                    android:ems="10"
+                    android:hint="Digite sua mensagem"
+                    android:inputType="textPersonName"
+                    android:textColor="#FFFFFF"
+                    android:textColorHighlight="#FFFFFF"
+                    android:textColorHint="#FFFFFF"
+                    android:textColorLink="#FFFFFF" />
 
-        <Button
-            android:id="@+id/enviarMensagem"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Enviar" />
+                <Button
+                    android:id="@+id/enviarMensagem"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:backgroundTint="#000000"
+                    android:background="@drawable/radius_botao"
+                    android:text="Enviar"
+                    android:textColor="#FFFFFF" />
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/linearLayout2"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="#000000"
+        android:background="#213F7C"
         android:orientation="horizontal"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -72,10 +83,10 @@
         android:layout_height="628dp"
         android:layout_marginTop="52dp"
         android:layout_marginBottom="50dp"
-        app:layout_constraintBottom_toBottomOf="@+id/lEditorMensagem"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/linearLayout2"
+        app:layout_constraintTop_toTopOf="parent"
         tools:listitem="@layout/mensagem_enviada_activity" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

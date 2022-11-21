@@ -3,6 +3,7 @@ package com.pdm.ui.list.viewholder
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.pdm.R
@@ -26,6 +27,11 @@ class MessageViewHolder (
     private val mensagemEnviada =
         itemView.findViewById<TextView>(R.id.mensagemEnviada)
 
+
+    private val lMensagemEnviada = itemView.findViewById<LinearLayout>(R.id.lMensagemEnviada)
+    private val lMensagemRecebida = itemView.findViewById<LinearLayout>(R.id.lMensagemRecebida)
+
+
     protected lateinit var currentMessage: Message
 
     init {
@@ -43,12 +49,14 @@ class MessageViewHolder (
             this.mensagemRecebida.text = message.message;
             this.nomeMensagemRecebida.text = chat?.name;
 
+            lMensagemEnviada.visibility = View.GONE;
             mensagemEnviada.visibility = View.GONE;
             nomeMensagemEnviada.visibility = View.GONE;
         }else{
             this.mensagemEnviada.text = message.message;
             this.nomeMensagemEnviada.text = "Guilherme";
 
+            lMensagemRecebida.visibility = View.GONE;
             mensagemRecebida.visibility = View.GONE;
             nomeMensagemRecebida.visibility = View.GONE;
         }
