@@ -71,8 +71,6 @@ class ChatActivity : AppCompatActivity() {
     private fun inserirMensagem(mensagemEscrita: String, chat: Chat?) {
         this.txtCampoMensagem.setText("");
 
-        Log.d("Mensagem escrita", mensagemEscrita);
-
         val num = (Math.random() * 10).toInt()
 
         if (num % 2 == 0) {
@@ -95,11 +93,6 @@ class ChatActivity : AppCompatActivity() {
         if (messageArray != null) {
             val adapter = MessageAdapter(messageArray);
             this.rvMessageList.adapter = adapter
-        } else {
-            Toast.makeText(
-                this,
-                "Não há mensagem", Toast.LENGTH_SHORT
-            ).show()
         }
     }
 

@@ -12,10 +12,10 @@ object DAOChatSingleton {
     init {
         val listArray: ArrayList<String> = ArrayList()
         listArray.add("Guilherme");
-        listArray.add("JJJJ");
-        listArray.add("CCC");
+        listArray.add("Julia");
+        listArray.add("Carol");
         for(i in 0..2) {
-            val c = Chat("${listArray[i]}", "...");
+            val c = Chat("${listArray[i]}", "");
             this.add(c)
         }
     }

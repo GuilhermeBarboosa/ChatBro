@@ -13,18 +13,18 @@ object DAOMessageSingleton {
     private var message = ArrayList<Message>()
 
     init {
-        for (i in 1..7) {
-
-            val num = (Math.random() * 10).toInt()
-
-            if (num % 2 == 0) {
-                val m = Message(1, "opa", true, LocalDateTime.now());
-                this.add(m)
-            } else {
-                val m = Message(1, "eai", false, LocalDateTime.now());
-                this.add(m)
-            }
-        }
+//        for (i in 1..7) {
+//
+//            val num = (Math.random() * 10).toInt()
+//
+//            if (num % 2 == 0) {
+//                val m = Message(1, "opa", true, LocalDateTime.now());
+//                this.add(m)
+//            } else {
+//                val m = Message(1, "eai", false, LocalDateTime.now());
+//                this.add(m)
+//            }
+//        }
     }
 
     fun add(m: Message) {
