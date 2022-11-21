@@ -15,7 +15,7 @@ object DAOChatSingleton {
         listArray.add("JJJJ");
         listArray.add("CCC");
         for(i in 0..2) {
-            val c = Chat("${listArray[i]}", "13/11/2022");
+            val c = Chat("${listArray[i]}", "...");
             this.add(c)
         }
     }

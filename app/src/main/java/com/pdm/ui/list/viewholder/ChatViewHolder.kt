@@ -13,6 +13,7 @@ class ChatViewHolder (
     itemView: View,
     protected val adapter: ChatAdapter
     ): RecyclerView.ViewHolder(itemView) {
+
     private var imgProfile =
         itemView.findViewById<ImageView>(R.id.imageProfile)
     private val txtName =
@@ -30,7 +31,8 @@ class ChatViewHolder (
 
     open fun bind(chat: Chat) {
         this.currentChat = chat
-        this.txtName.text = this.currentChat.name
-        this.txtMessage.text = this.currentChat.lastMessage
+        this.txtName.text = chat.name
+        this.txtMessage.text = chat.lastMessage
     }
+
 }

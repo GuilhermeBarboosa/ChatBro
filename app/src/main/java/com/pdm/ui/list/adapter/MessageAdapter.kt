@@ -32,7 +32,6 @@ class MessageAdapter(
                 parent, false
             )
             return MessageViewHolder(itemView, this)
-
     }
 
     override fun onBindViewHolder(holder: MessageViewHolder, position: Int) {

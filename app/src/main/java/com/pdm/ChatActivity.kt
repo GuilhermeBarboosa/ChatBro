@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.pdm.data.DAOChatSingleton
 import com.pdm.data.DAOMessageSingleton
+import com.pdm.model.Chat
 import com.pdm.model.Message
 import com.pdm.ui.list.adapter.MessageAdapter
 import java.time.LocalDateTime
@@ -54,44 +55,59 @@ class ChatActivity : AppCompatActivity() {
         this.rvMessageList = findViewById(R.id.rvMessageList);
 
         this.rvMessageList.layoutManager = LinearLayoutManager(this)
-        var messageArray = DAOMessageSingleton.getMessage(chat);
-        if(messageArray != null){
-            val adapter = MessageAdapter(messageArray);
-            this.rvMessageList.adapter = adapter
-        }else{
-            Toast.makeText(this,
-                "Não há mensagem", Toast.LENGTH_SHORT).show()
-        }
+        updateMensagem(chat);
 
         this.botaoEnviar.setOnClickListener {
-            Toast.makeText(this,
-                "entrou", Toast.LENGTH_SHORT).show()
-
             val mensagemEscrita: String = this.txtCampoMensagem.text.toString()
-            Log.d("Mensagem escrita", mensagemEscrita);
 
-            val num = (Math.random()*10).toInt()
-
-            if(num%2 == 0){
-                val m = Message(chatId, mensagemEscrita, true, LocalDateTime.now());
-                DAOMessageSingleton.add(m)
-            }else{
-                val m = Message(chatId, mensagemEscrita, false, LocalDateTime.now());
-                DAOMessageSingleton.add(m)
+            if(!mensagemEscrita.equals("")){
+                inserirMensagem(mensagemEscrita, chat)
             }
-
-            this.rvMessageList.adapter?.notifyItemInserted(DAOMessageSingleton.getSizeMessage())
         }
 
+    }
 
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun inserirMensagem(mensagemEscrita: String, chat: Chat?) {
+        this.txtCampoMensagem.setText("");
+
+        Log.d("Mensagem escrita", mensagemEscrita);
+
+        val num = (Math.random() * 10).toInt()
+
+        if (num % 2 == 0) {
+            val m = Message(chatId, mensagemEscrita, true, LocalDateTime.now());
+            DAOMessageSingleton.add(m)
+        } else {
+            val m = Message(chatId, mensagemEscrita, false, LocalDateTime.now());
+            DAOMessageSingleton.add(m)
+        }
+
+        val updateMensagem = DAOChatSingleton.getChatById(chatId);
+        updateMensagem?.updateMensagem(mensagemEscrita);
+        this.rvMessageList.adapter?.notifyItemInserted(DAOMessageSingleton.getSizeMessage());
+        updateMensagem(chat);
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun updateMensagem(chat: Chat?) {
+        val messageArray = DAOMessageSingleton.getMessage(chat!!);
+        if (messageArray != null) {
+            val adapter = MessageAdapter(messageArray);
+            this.rvMessageList.adapter = adapter
+        } else {
+            Toast.makeText(
+                this,
+                "Não há mensagem", Toast.LENGTH_SHORT
+            ).show()
+        }
     }
 
     override fun onBackPressed() {
         val output = Intent()
-        output.putExtra("chatId", this.chatId)
+        output.putExtra("chat", this.chatId)
         setResult(RESULT_OK, output)
-        // nunca chame finish() antes de settar o resultado
-        // super.onBackPressed() chama finish() internamente
+
         super.onBackPressed()
     }
 

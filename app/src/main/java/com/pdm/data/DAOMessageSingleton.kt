@@ -33,15 +33,15 @@ object DAOMessageSingleton {
     }
 
     fun getMessage(chat: Chat): ArrayList<Message>? {
-        var messageChat = ArrayList<Message>()
+        val messageChat = ArrayList<Message>()
 
         if (!this.message.isEmpty()) {
             for (i in this.message) {
                 if (i.chatId == chat.id) {
-                    Log.d("Mensagem", i.toString());
                     messageChat.add(i)
                 }
             }
+            messageChat.reverse();
             return messageChat;
         }
         return null;

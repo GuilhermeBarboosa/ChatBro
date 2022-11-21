@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.pdm.data.DAOChatSingleton
 import com.pdm.model.Chat
 import com.pdm.ui.list.adapter.ChatAdapter
+import com.pdm.ui.list.viewholder.ChatViewHolder
 import kotlin.random.Random
 
 
@@ -20,7 +21,9 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var rvChatList: RecyclerView
     private lateinit var appBarConfiguration: AppBarConfiguration
-//  private lateinit var binding: ActivityMainBinding
+
+    private var chatId: Long = -1
+    private var lastMensagem: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,26 +31,7 @@ class MainActivity : AppCompatActivity() {
 
         this.rvChatList = findViewById(R.id.rvChatList);
 
-        this.rvChatList.layoutManager = LinearLayoutManager(this)
-        val adapter = ChatAdapter(DAOChatSingleton.getChats());
-        this.rvChatList.adapter = adapter
-
-        val resultLauncher = registerForActivityResult(
-            ActivityResultContracts.StartActivityForResult()
-        ) { result ->
-            if(result.resultCode == RESULT_OK && result.data != null) {
-                val chatId = result.data!!.getLongExtra("chatId", -1)
-                val chatPos = DAOChatSingleton.getChatPositionById(chatId)
-                adapter.notifyItemChanged(chatPos)
-            }
-        }
-
-        adapter.setOnClickChatListener { chat ->
-            val openChatIntent =
-                Intent(this, ChatActivity::class.java)
-            openChatIntent.putExtra("chatId", chat.id)
-            resultLauncher.launch(openChatIntent)
-        }
+        createActivityChat()
     }
 
     fun onClickInsert(v: View) {
@@ -83,4 +67,33 @@ class MainActivity : AppCompatActivity() {
         return true
     }
 
+    override fun onRestart() {
+        super.onRestart()
+        createActivityChat()
+    }
+
+    private fun createActivityChat() {
+        this.rvChatList.layoutManager = LinearLayoutManager(this)
+        val adapter = ChatAdapter(DAOChatSingleton.getChats());
+        this.rvChatList.adapter = adapter
+
+        val resultLauncher = registerForActivityResult(
+            ActivityResultContracts.StartActivityForResult()
+        ) { result ->
+            if (result.resultCode == RESULT_OK && result.data != null) {
+                val chatId = result.data!!.getLongExtra("chatId", -1)
+                val chatPos = DAOChatSingleton.getChatPositionById(chatId)
+                adapter.notifyItemChanged(chatPos)
+            }
+        }
+
+        adapter.setOnClickChatListener { chat ->
+            val openChatIntent =
+                Intent(this, ChatActivity::class.java)
+            openChatIntent.putExtra("chatId", chat.id)
+            resultLauncher.launch(openChatIntent)
+        }
+    }
+
 }
+
